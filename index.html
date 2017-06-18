@@ -3,11 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Quote Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awessome.min.css"> -->
   </head>
   <body>
     <h1>Simple Quote Generator</h1>
     <div id='quoteDisplay'></div>
-    <button onClick='newQuote()' name="button" id="get-another-quote-button">New Quote</button>
+    <div class="quote-box">
+      <div class="quote-text">
+        <i class="fa fa-quote-left"> </i><span id="text"></span>
+      </div>
+      <div class="quote-author"><span id="author"></span></div>
+      <div class="buttons">
+        <a class="button" id="tweet-quote" title="Tweet this quote!" target="_blank">
+          <i class="fa fa-bullhorn">bull</i>
+        </a>
+        <a class="button" id="tumblr-quote" title="Post this quote on tumblr!" target="_blank">
+          <i class="fa fa-tumblr"></i>
+        </a>
+        <button class="button" id="new-quote">New quote</button>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
     <script type="text/javascript" src='app.js'></script>
     <script type="text/javascript" src="https://www.brainyquote.com/link/quotebr.js"></script>
   </body>
