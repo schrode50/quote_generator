@@ -1,97 +1,16 @@
-// $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(a) {
-//   $("body").append(a[0].content + "<p>— " + a[0].title + "</p>")
-// });
-//
-// $('#get-another-quote-button').on('click', function(e) {
-//     e.preventDefault();
-//     $.ajax( {
-//       url: '/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
-//       success: function(data) {
-//         var post = data.shift(); // The data is an array of posts. Grab the first one.
-//         $('#quote-title').text(post.title);
-//         $('#quote-content').html(post.content);
-//
-//         // If the Source is available, use it. Otherwise hide it.
-//         if (typeof post.custom_meta !== 'undefined' && typeof post.custom_meta.Source !== 'undefined') {
-//           $('#quote-source').html('Source:' + post.custom_meta.Source);
-//         } else {
-//           $('#quote-source').text('');
-//         }
-//       },
-//       cache: false
-//     });
-//   });
-// });
-
-
-function inIframe () { try { return window.self !== window.top; } catch (e) { return true; } }
-
-var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
-var currentQuote = '', currentAuthor = '';
-function openURL(url){
-  window.open(url, 'Share', 'width=550, height=400, toolbar=0, scrollbars=1 ,location=0 ,statusbar=0,menubar=0, resizable=0');
-}
 function getQuote() {
-  $.ajax({
-    headers: {
-      "X-Mashape-Key": "OivH71yd3tmshl9YKzFH7BTzBVRQp1RaKLajsnafgL2aPsfP9V",
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    url: 'https://andruxnet-random-famous-quotes.p.mashape.com/cat=',
-    success: function(r) {
-      if (typeof r === 'string') {
-       r = JSON.parse(r);
-      }
-      currentQuote = r.quote;
-      currentAuthor = r.author;
-      if(inIframe())
-      {
-        $('#tweet-quote').attr('href', 'https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
-        $('#tumblr-quote').attr('href', 'https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
-      }
-      $(".quote-text").animate({
-          opacity: 0
-        }, 500,
-        function() {
-          $(this).animate({
-            opacity: 1
-          }, 500);
-          $('#text').text(r.quote);
-        });
-
-      $(".quote-author").animate({
-          opacity: 0
-        }, 500,
-        function() {
-          $(this).animate({
-            opacity: 1
-          }, 500);
-          $('#author').html(r.author);
-        });
-
-      var color = Math.floor(Math.random() * colors.length);
-      $("html body").animate({
-        backgroundColor: colors[color],
-        color: colors[color]
-      }, 1000);
-      $(".button").animate({
-        backgroundColor: colors[color]
-      }, 1000);
-    }
+  $('.new_quote').on('click', function(e) {
+    e.preventDefault();
+    $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=40&callback=", function(a) {
+      // console.log(a);
+      var random = Math.floor(Math.random() * 40);
+      $('.new_text').empty();
+      $(".new_text").append(a[random].content + "<p>— " + a[random].title + "</p>")
+      // console.log('success');
+    })
   });
 }
+
 $(document).ready(function() {
   getQuote();
-  $('#new-quote').on('click', getQuote);
-  $('#tweet-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + encodeURIComponent('"' + currentQuote + '" ' + currentAuthor));
-    }
-  });
-  $('#tumblr-quote').on('click', function() {
-    if(!inIframe()) {
-      openURL('https://www.tumblr.com/widgets/share/tool?posttype=quote&tags=quotes,freecodecamp&caption='+encodeURIComponent(currentAuthor)+'&content=' + encodeURIComponent(currentQuote)+'&canonicalUrl=https%3A%2F%2Fwww.tumblr.com%2Fbuttons&shareSource=tumblr_share_button');
-    }
-  });
 });
