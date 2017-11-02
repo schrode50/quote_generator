@@ -1,0 +1,17 @@
+.header {
+  border: 50px;
+  border-style: dashed;
+  border-color: blue;
+}
+
+p {
+  color: randomColor(colors);
+}
+
+.new_quote {
+  margin: 20px;
+  padding: 20px;
+  border: 20px;
+  border-style: solid;
+  // border-color: ".random-color";
+}

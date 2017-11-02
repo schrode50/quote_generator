@@ -1,18 +1,15 @@
 .header {
-  border: 10px;
+  border: 50px;
   border-style: dashed;
-  border-color: blue;
-}
+  border-color: blue; }
 
-h1 {
-  color: blue;
-}
+p {
+  color: randomColor(colors); }
 
 .new_quote {
-  /*width: 90%;*/
-  color: red;
   margin: 20px;
   padding: 20px;
-  border-style: solid;
-  border-color: green;
-}
+  border: 20px;
+  border-style: solid; }
+
+/*# sourceMappingURL=style.css.map */
